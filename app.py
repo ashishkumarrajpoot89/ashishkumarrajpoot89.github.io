@@ -28,7 +28,7 @@ PROFILE = {
     "email": "beashishrj@gmail.com",
     "phone": "+91 8707418744",
     "github": "https://github.com/ashishkumarrajpoot89",
-    "linkedin": "https://www.linkedin.com/in/ashishkumarrajpoot89",
+    "linkedin": "https://www.linkedin.com/in/ashishkumarrajpoot/",
     "photo": "img/profile.jpg",
     "resume_file": "resume.pdf",
     "summary": (
