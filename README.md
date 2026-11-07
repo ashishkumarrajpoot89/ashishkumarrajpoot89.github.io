@@ -42,7 +42,9 @@ dictionaries at the top of **`app.py`** — edit there and the whole site update
 FREEZE=1 python freeze.py              # -> ./build
 ```
 The contact form posts to Formspree in the static build; set your endpoint via the
-`FORMSPREE_ENDPOINT` env var (or a repo secret of the same name for CI).
+`FORMSPREE_ENDPOINT` env var (or a repo secret of the same name for CI). If it is empty or
+unset, the contact section shows email / LinkedIn / GitHub buttons instead of the form.
+`freeze.py` also writes `robots.txt` and `sitemap.xml` into `./build`.
 
 ## Deployment
 - **GitHub Pages** (static): pushing to `main` triggers `.github/workflows/deploy-pages.yml`,

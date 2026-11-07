@@ -8,6 +8,7 @@
     <div class="hero">
         <div class="hero-text">
             <span class="eyebrow">Data · Code · Insights · Impact</span>
+            <span class="open-pill"><span class="dot" aria-hidden="true"></span>Open to Data Engineer roles</span>
             <h1>Hi, I'm <span class="name">{{ profile.name }}</span></h1>
             <p class="roles">
                 {% for r in profile.roles %}{{ r }}{% if not loop.last %} <span class="sep">|</span> {% endif %}{% endfor %}
@@ -16,6 +17,7 @@
             <div class="hero-cta">
                 <a href="#projects" class="btn btn-primary">View My Work</a>
                 <a href="#resume" class="btn btn-outline">Download Resume</a>
+                <a href="mailto:{{ profile.email }}?subject=Portfolio%20enquiry" class="btn btn-outline">Email me</a>
             </div>
             <div class="hero-socials">
                 <a href="{{ profile.github }}" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
@@ -83,7 +85,7 @@
         </div>
         <div>
             <div class="about-scene">
-                <img src="{{ url_for('static', filename='img/award.jpg') }}" alt="{{ profile.name }}"
+                <img src="{{ url_for('static', filename='img/award.webp') }}" alt="Ashish Kumar Rajpoot receiving an award"
                      class="about-photo-full"
                      onerror="this.src='{{ url_for('static', filename=profile.photo) }}'">
                 <div class="sticky-note yellow">Curiosity<br>Today</div>
@@ -135,7 +137,7 @@
     <div class="grid-3">
         {% for p in projects %}
         <div class="card project-card">
-            <div class="project-thumb">{% if p.image %}<img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.title }} screenshot" loading="lazy">{% else %}{% include 'partials/scene_' + p.scene + '.svg' %}{% endif %}</div>
+            <div class="project-thumb">{% if p.image %}<img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.title }} project preview" loading="lazy">{% else %}{% include 'partials/scene_' + p.scene + '.svg' %}{% endif %}</div>
             <div class="tag-row">
                 {% for tag in p.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
             </div>
@@ -163,6 +165,7 @@
                 <div class="tl-period">{{ e.period }}</div>
                 <h3>{{ e.role }}</h3>
                 <div class="org">{{ e.org }}</div>
+                {% if e.team %}<div class="team">{{ e.team }}</div>{% endif %}
                 <ul>
                     {% for pt in e.points %}<li>{{ pt }}</li>{% endfor %}
                 </ul>
@@ -181,7 +184,7 @@
 
     <!-- Recognition: full-card image -->
     <div class="recognition-card">
-        <img src="{{ url_for('static', filename='img/award.jpg') }}" alt="Ashish Kumar receiving an award"
+        <img src="{{ url_for('static', filename='img/award.webp') }}" alt="Ashish Kumar Rajpoot receiving an award"
              class="recognition-img"
              onerror="this.parentElement.style.display='none'">
         <div class="recognition-overlay">
@@ -257,6 +260,7 @@
             <div class="contact-illus">📨</div>
             <div class="handwritten pink" style="text-align:center;">Open to new Opportunities!</div>
         </div>
+        {% if contact_form_enabled %}
         <div class="card">
             <form method="POST" action="{{ contact_action }}">
                 <div class="form-group">
@@ -271,6 +275,17 @@
                 <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
         </div>
+        {% else %}
+        <div class="card contact-fallback">
+            <h3>Prefer email? Write to me directly</h3>
+            <p>Reach out about Data Engineer roles or projects.</p>
+            <a href="mailto:{{ profile.email }}?subject=Portfolio%20enquiry" class="btn btn-primary btn-lg">Email {{ profile.email }}</a>
+            <div class="hero-cta">
+                <a href="{{ profile.linkedin }}" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn</a>
+                <a href="{{ profile.github }}" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </section>
 

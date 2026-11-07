@@ -3,7 +3,7 @@
 
 {% block content %}
 <section class="container">
-    <a href="{{ url_for('projects') }}" class="back-link">← Back to Projects</a>
+    <a href="{{ url_for('home') }}#projects" class="back-link">← Back to Projects</a>
     <h2 class="section-title" style="margin-top:12px;">{{ project.title }}</h2>
     <p class="section-sub">{{ project.short }}</p>
     <div class="tag-row">
@@ -11,7 +11,7 @@
     </div>
 
     {% if project.image %}
-    <img class="detail-hero-img" src="{{ url_for('static', filename=project.image) }}" alt="{{ project.title }} screenshot">
+    <img class="detail-hero-img" src="{{ url_for('static', filename=project.image) }}" alt="{{ project.title }} project preview">
     {% endif %}
 
     <div class="detail-wrap">

@@ -4,15 +4,21 @@ Flask application serving a multi-page data-professional portfolio.
 """
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 import os
+from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = "ashish-portfolio-secret-key"
+app.secret_key = os.environ.get("SECRET_KEY", "ashish-portfolio-secret-key")
 
 # When exported as a static site (GitHub Pages), the Flask contact route won't
 # exist, so the form posts to Formspree instead. Set FORMSPREE_ENDPOINT to your
 # own Formspree form URL (https://formspree.io -> create form -> copy the URL).
 # When FREEZE=1 (used by freeze.py), the form uses this endpoint.
-FORMSPREE_ENDPOINT = os.environ.get("FORMSPREE_ENDPOINT", "https://formspree.io/f/your-form-id")
+# To enable the form on the live site: create a form at formspree.io, then add the
+# URL as a GitHub repo secret named FORMSPREE_ENDPOINT. An unset secret reaches us as an
+# empty string, so empty/placeholder values mean "not configured" and the contact section
+# falls back to email / LinkedIn / GitHub buttons instead of a broken form.
+FORMSPREE_ENDPOINT = (os.environ.get("FORMSPREE_ENDPOINT") or "").strip()
+FORMSPREE_CONFIGURED = bool(FORMSPREE_ENDPOINT) and "your-form-id" not in FORMSPREE_ENDPOINT
 IS_STATIC_BUILD = os.environ.get("FREEZE") == "1"
 # Public site URL (used for canonical + Open Graph tags).
 SITE_URL = os.environ.get("SITE_URL", "https://ashishkumarrajpoot89.github.io")
@@ -44,9 +50,9 @@ PROFILE = {
 
 STATS = [
     {"value": "1M+", "label": "Records Processed"},
-    {"value": "50%+", "label": "Manual Time Saved"},
-    {"value": "15+", "label": "Projects on GitHub"},
-    {"value": "100%", "label": "Passion for Data"},
+    {"value": "2M+", "label": "Applicants Ranked"},
+    {"value": "2", "label": "Roles at Samarth eGov"},
+    {"value": "6", "label": "Featured Projects"},
 ]
 
 TRAITS = [
@@ -123,13 +129,10 @@ SKILLS = {
     "Cloud (AWS)": [
         _skill("Amazon S3"),
         _skill("AWS Glue"),
-        _skill("Amazon Redshift"),
         _skill("Amazon Athena"),
         _skill("Amazon EMR"),
         _skill("AWS Lambda"),
         _skill("AWS IAM"),
-        _skill("AWS DMS"),
-        _skill("Amazon Kinesis"),
     ],
     "Cloud Platforms": [
         _skill("AWS", _dv("amazonwebservices/amazonwebservices-original.svg")),
@@ -180,7 +183,7 @@ GITHUB = PROFILE["github"]
 PROJECTS = [
     {
         "slug": "adventure-works",
-        "image": "img/projects/adventure-works.jpg",
+        "image": "img/projects/adventure-works.webp",
         "title": "Adventure Works Sales Analytics",
         "tags": ["Data Analytics", "Power BI"],
         "accent": "#FF4103",
@@ -205,7 +208,7 @@ PROJECTS = [
     },
     {
         "slug": "sales-demand-forecast",
-        "image": "img/projects/sales-demand-forecast.png",
+        "image": "img/projects/sales-demand-forecast.webp",
         "title": "Sales Demand Forecast",
         "tags": ["Machine Learning", "Pipeline"],
         "accent": "#ff6a3d",
@@ -230,7 +233,7 @@ PROJECTS = [
     },
     {
         "slug": "insurance-fraud-detection",
-        "image": "img/projects/insurance-fraud-detection.png",
+        "image": "img/projects/insurance-fraud-detection.webp",
         "title": "Insurance Fraud Detection",
         "tags": ["Machine Learning", "Pipeline"],
         "accent": "#d6350a",
@@ -256,7 +259,7 @@ PROJECTS = [
     },
     {
         "slug": "olympics-analysis",
-        "image": "img/projects/olympics-analysis.png",
+        "image": "img/projects/olympics-analysis.webp",
         "title": "Olympics Analysis",
         "tags": ["Data Analytics", "Streamlit"],
         "accent": "#ff8a5c",
@@ -282,7 +285,7 @@ PROJECTS = [
     },
     {
         "slug": "movie-ratings-analysis",
-        "image": "img/projects/movie-ratings-analysis.png",
+        "image": "img/projects/movie-ratings-analysis.webp",
         "title": "Movie Ratings & Genre Analysis",
         "tags": ["Data Analytics", "Streamlit"],
         "accent": "#FF4103",
@@ -308,7 +311,7 @@ PROJECTS = [
     },
     {
         "slug": "fake-news-detector",
-        "image": "img/projects/fake-news-detector.png",
+        "image": "img/projects/fake-news-detector.webp",
         "title": "Fake News Detector (GPT-2)",
         "tags": ["NLP", "Machine Learning"],
         "accent": "#ff6a3d",
@@ -338,6 +341,7 @@ EXPERIENCE = [
     {
         "period": "June 2026 - Present",
         "role": "Junior Software Developer",
+        "team": "Data Science Team - data engineering work",
         "org": "Samarth eGov (Ministry of Education, GoI)",
         "points": [
             "Developed and maintained a rank-and-preference-based seat allocation engine processing 1M+ student records.",
@@ -388,6 +392,8 @@ def inject_globals():
     nav_base = "" if request.path == "/" else url_for("home")
     # Static build posts the contact form to Formspree; Flask build uses its route.
     contact_action = FORMSPREE_ENDPOINT if IS_STATIC_BUILD else url_for("contact_submit")
+    # Dev server has the internal route; static build needs a real Formspree endpoint.
+    contact_form_enabled = FORMSPREE_CONFIGURED if IS_STATIC_BUILD else True
     # Static build links Download straight to the PDF; Flask build uses its route.
     if IS_STATIC_BUILD:
         resume_download_url = url_for("static", filename=PROFILE["resume_file"])
@@ -399,7 +405,8 @@ def inject_globals():
     )
     return {
         "profile": PROFILE,
-        "current_year": 2026,
+        "current_year": datetime.now().year,
+        "contact_form_enabled": contact_form_enabled,
         "nav_base": nav_base,
         "contact_action": contact_action,
         "resume_download_url": resume_download_url,
@@ -460,7 +467,7 @@ def contact():
 
 
 # --- Project detail keeps its own page for the deep view ---
-@app.route("/projects/<slug>")
+@app.route("/projects/<slug>/")
 def project_detail(slug):
     project = next((p for p in PROJECTS if p["slug"] == slug), None)
     if project is None:

@@ -497,3 +497,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
+
+/* ---------- Hero open-to-work pill, team subtitle, contact fallback ---------- */
+.open-pill { display: inline-flex; align-items: center; gap: 8px; font-size: .85rem; color: var(--text); border: 1px solid var(--primary); border-radius: 999px; padding: 5px 14px; margin: 0 0 14px 8px; }
+.open-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; }
+.tl-item .team { color: var(--muted); font-size: .85rem; font-style: italic; margin: -6px 0 10px; }
+.btn-lg { padding: 16px 28px; font-size: 1.05rem; }
+.contact-fallback { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.contact-fallback h3 { margin: 0; }
+.contact-fallback p { color: var(--muted); margin: 0; }
+.contact-fallback .hero-cta { margin-bottom: 0; }
+@media (max-width: 560px) { .open-pill { margin-left: 0; } .contact-fallback .btn-lg { width: 100%; text-align: center; } }
