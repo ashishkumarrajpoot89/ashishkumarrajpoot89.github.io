@@ -383,7 +383,10 @@ section { padding: 90px 0; }
 .skills-accent { position: relative; }
 
 /* ---------- PROJECT scene illustrations ---------- */
-.project-thumb { position: relative; height: 168px; overflow: hidden; }
+.project-thumb { position: relative; height: 190px; overflow: hidden; }
+.project-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; border-radius: 12px; transition: transform .4s ease; }
+.project-card:hover .project-thumb img { transform: scale(1.04); }
+.detail-hero-img { width: 100%; max-height: 420px; object-fit: cover; object-position: top center; display: block; border-radius: 16px; border: 1px solid var(--border); margin: 20px 0 28px; }
 .scene-svg { width: 100%; height: 100%; display: block; }
 
 /* ---------- PROJECT DETAIL layout ---------- */

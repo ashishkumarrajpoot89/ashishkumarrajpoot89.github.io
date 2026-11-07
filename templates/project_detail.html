@@ -10,6 +10,10 @@
         {% for tag in project.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
     </div>
 
+    {% if project.image %}
+    <img class="detail-hero-img" src="{{ url_for('static', filename=project.image) }}" alt="{{ project.title }} screenshot">
+    {% endif %}
+
     <div class="detail-wrap">
         <aside class="detail-nav">
             {% for key in project.sections.keys() %}

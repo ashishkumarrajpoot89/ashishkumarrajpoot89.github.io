@@ -180,6 +180,7 @@ GITHUB = PROFILE["github"]
 PROJECTS = [
     {
         "slug": "adventure-works",
+        "image": "img/projects/adventure-works.jpg",
         "title": "Adventure Works Sales Analytics",
         "tags": ["Data Analytics", "Power BI"],
         "accent": "#FF4103",
@@ -204,6 +205,7 @@ PROJECTS = [
     },
     {
         "slug": "sales-demand-forecast",
+        "image": "img/projects/sales-demand-forecast.png",
         "title": "Sales Demand Forecast",
         "tags": ["Machine Learning", "Pipeline"],
         "accent": "#ff6a3d",
@@ -228,6 +230,7 @@ PROJECTS = [
     },
     {
         "slug": "insurance-fraud-detection",
+        "image": "img/projects/insurance-fraud-detection.png",
         "title": "Insurance Fraud Detection",
         "tags": ["Machine Learning", "Pipeline"],
         "accent": "#d6350a",
@@ -253,6 +256,7 @@ PROJECTS = [
     },
     {
         "slug": "olympics-analysis",
+        "image": "img/projects/olympics-analysis.png",
         "title": "Olympics Analysis",
         "tags": ["Data Analytics", "Streamlit"],
         "accent": "#ff8a5c",
@@ -278,6 +282,7 @@ PROJECTS = [
     },
     {
         "slug": "movie-ratings-analysis",
+        "image": "img/projects/movie-ratings-analysis.png",
         "title": "Movie Ratings & Genre Analysis",
         "tags": ["Data Analytics", "Streamlit"],
         "accent": "#FF4103",
@@ -303,6 +308,7 @@ PROJECTS = [
     },
     {
         "slug": "fake-news-detector",
+        "image": "img/projects/fake-news-detector.png",
         "title": "Fake News Detector (GPT-2)",
         "tags": ["NLP", "Machine Learning"],
         "accent": "#ff6a3d",

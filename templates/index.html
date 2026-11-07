@@ -135,7 +135,7 @@
     <div class="grid-3">
         {% for p in projects %}
         <div class="card project-card">
-            <div class="project-thumb">{% include 'partials/scene_' + p.scene + '.svg' %}</div>
+            <div class="project-thumb">{% if p.image %}<img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.title }} screenshot" loading="lazy">{% else %}{% include 'partials/scene_' + p.scene + '.svg' %}{% endif %}</div>
             <div class="tag-row">
                 {% for tag in p.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
             </div>
