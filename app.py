@@ -22,7 +22,7 @@ SITE_URL = os.environ.get("SITE_URL", "https://ashishkumarrajpoot89.github.io")
 # ---------------------------------------------------------------------------
 PROFILE = {
     "name": "Ashish Kumar Rajpoot",
-    "roles": ["Data Engineer", "Data Analyst", "Python Developer"],
+    "roles": ["Data Engineer", "Data Analyst"],
     "tagline": "Turning data into meaningful insights and building scalable solutions for a better tomorrow.",
     "location": "Delhi & Noida, India",
     "email": "beashishrj@gmail.com",
