@@ -26,6 +26,38 @@ document.querySelectorAll('.pill').forEach(pill => {
     });
 });
 
+// Skills collapse / expand (CSS hides `.extra` chips only when <html class="js">)
+(function () {
+    const groups = Array.from(document.querySelectorAll('.skill-group'));
+    const allBtn = document.getElementById('skillsToggleAll');
+    function setGroup(group, open) {
+        group.classList.toggle('expanded', open);
+        const btn = group.querySelector('.skill-more');
+        if (!btn) return;
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.textContent = open ? 'Show less' : btn.dataset.more;
+    }
+    function syncAll() {
+        if (!allBtn) return;
+        const withMore = groups.filter(g => g.querySelector('.skill-more'));
+        const allOpen = withMore.length > 0 && withMore.every(g => g.classList.contains('expanded'));
+        allBtn.textContent = allOpen ? 'Collapse all' : 'Expand all';
+        allBtn.setAttribute('aria-pressed', allOpen ? 'true' : 'false');
+    }
+    groups.forEach(group => {
+        const btn = group.querySelector('.skill-more');
+        if (btn) btn.addEventListener('click', () => {
+            setGroup(group, !group.classList.contains('expanded'));
+            syncAll();
+        });
+    });
+    if (allBtn) allBtn.addEventListener('click', () => {
+        const open = allBtn.getAttribute('aria-pressed') !== 'true';
+        groups.forEach(g => setGroup(g, open));
+        syncAll();
+    });
+    syncAll();
+})();
 // Reveal on scroll
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {

@@ -62,17 +62,19 @@ TRAITS = [
     {"icon": "🚀", "title": "Passionate about Data"},
 ]
 
-# Each skill is a (name, logo-url) pair. `logo` is a full icon URL or None.
+# Each skill is a (name, logo) pair. `logo` is a static-relative path (img/logos/*.svg) or None.
 # Logos come from simple-icons (si) or devicon (dv) — devicon covers brand icons
 # that simple-icons dropped (Power BI, VS Code, Excel, AWS, dbt, etc.).
 # In the template every skill renders as ONE pill: icon + name if a logo exists,
 # just the name otherwise. All pills in a category flow in a single wrapping row.
 def _si(slug, color="FF4103"):
-    return f"https://cdn.simpleicons.org/{slug}/{color}"
+    # Self-hosted copy of https://cdn.simpleicons.org/{slug}/{color} (colour baked into the SVG)
+    return f"img/logos/{slug}.svg"
 
 
 def _dv(path):
-    return f"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/{path}"
+    # Self-hosted copy of devicon icons/{path}
+    return f"img/logos/{path.split('/')[0]}.svg"
 
 
 def _skill(name, logo=None):
@@ -98,7 +100,7 @@ SKILLS = {
         _skill("Multiprocessing"),
     ],
     "Big Data & Distributed Processing": [
-        _skill("Apache Hadoop", _dv("apachehadoop/apachehadoop-original.svg")),
+        _skill("Apache Hadoop"),
         _skill("HDFS"),
         _skill("YARN"),
         _skill("Apache Hive", _si("apachehive", "FDEE21")),
@@ -108,7 +110,7 @@ SKILLS = {
     ],
     "Data Transformation & Orchestration": [
         _skill("Apache Airflow", _si("apacheairflow", "017CEE")),
-        _skill("dbt", _dv("dbt/dbt-original.svg")),
+        _skill("dbt"),
     ],
     "Databases & Data Warehousing": [
         _skill("MySQL", _si("mysql", "4479A1")),
@@ -160,7 +162,7 @@ SKILLS = {
         _skill("Data Preprocessing"),
     ],
     "BI & Visualization": [
-        _skill("Power BI", _dv("powerbi/powerbi-original.svg")),
+        _skill("Power BI"),
         _skill("Apache Superset", _si("apachesuperset", "20A6C9")),
         _skill("Matplotlib", _dv("matplotlib/matplotlib-original.svg")),
         _skill("Seaborn"),
@@ -173,7 +175,7 @@ SKILLS = {
         _skill("Jupyter", _si("jupyter", "F37626")),
         _skill("Google Sheets", _si("googlesheets", "34A853")),
         _skill("VS Code", _dv("vscode/vscode-original.svg")),
-        _skill("Excel", _dv("excel/excel-original.svg")),
+        _skill("Excel"),
     ],
 }
 

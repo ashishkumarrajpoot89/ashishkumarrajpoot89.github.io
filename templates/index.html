@@ -110,19 +110,28 @@
         {% endfor %}
     </div>
 
+    <div class="skills-toolbar">
+        <button type="button" class="skills-toggle-all" id="skillsToggleAll" data-state="collapsed" aria-pressed="false">Expand all</button>
+    </div>
+
     {% for group, items in skills.items() %}
+    {% set visible = 8 %}
     <div class="skill-group" data-group="{{ group }}" style="text-align:left;">
         <h3>{{ group }}</h3>
-        <div class="skill-chips">
+        <div class="skill-chips" id="chips-{{ loop.index }}">
             {% for skill in items %}
-            <span class="skill-chip">
+            <span class="skill-chip{% if loop.index > visible %} extra{% endif %}">
                 {% if skill.logo %}
-                <img class="chip-logo" src="{{ skill.logo }}" alt="" loading="lazy"
+                <img class="chip-logo" src="{{ url_for('static', filename=skill.logo) }}" alt="" loading="lazy" width="18" height="18"
                      onerror="this.remove()">
                 {% endif %}
                 {{ skill.name }}
             </span>
             {% endfor %}
+            {% if items|length > visible %}
+            <button type="button" class="skill-more" aria-expanded="false" aria-controls="chips-{{ loop.index }}"
+                    data-more="+{{ items|length - visible }} more">+{{ items|length - visible }} more</button>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

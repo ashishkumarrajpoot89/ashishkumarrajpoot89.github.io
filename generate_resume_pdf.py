@@ -62,8 +62,8 @@ def main():
 
     e.append(Paragraph("ASHISH KUMAR", st["name"]))
     e.append(Paragraph("Data Engineer | Python | SQL | ETL | Apache Airflow | Agentic AI", st["subtitle"]))
-    e.append(Paragraph("8707418744 &nbsp;|&nbsp; beashishrj@gmail.com &nbsp;|&nbsp; "
-                       "LinkedIn &nbsp;|&nbsp; GitHub &nbsp;|&nbsp; Delhi &amp; Noida, India", st["contact"]))
+    e.append(Paragraph("8707418744 &nbsp;|&nbsp; <link href=\"mailto:beashishrj@gmail.com\">beashishrj@gmail.com</link> &nbsp;|&nbsp; "
+                       "<link href=\"https://www.linkedin.com/in/ashishkumarrajpoot/\">LinkedIn</link> &nbsp;|&nbsp; <link href=\"https://github.com/ashishkumarrajpoot89\">GitHub</link> &nbsp;|&nbsp; Delhi &amp; Noida, India", st["contact"]))
 
     e.append(Paragraph("PROFESSIONAL SUMMARY", st["h2"]))
     e.append(rule())
