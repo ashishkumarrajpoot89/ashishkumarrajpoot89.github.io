@@ -53,6 +53,7 @@
                 </div>
                 <div class="hero-cta">
                     <a href="{{ project.github }}" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
+                    {% if project.demo %}<a href="{{ project.demo }}" target="_blank" rel="noopener" class="btn btn-outline">Live demo ↗</a>{% endif %}
                 </div>
             </div>
         </div>

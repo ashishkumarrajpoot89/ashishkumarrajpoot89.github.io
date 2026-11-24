@@ -52,7 +52,7 @@ STATS = [
     {"value": "1M+", "label": "Records Processed"},
     {"value": "2M+", "label": "Applicants Ranked"},
     {"value": "2", "label": "Roles at Samarth eGov"},
-    {"value": "6", "label": "Featured Projects"},
+    {"value": "0", "label": "Featured Projects"},  # set from len(PROJECTS) below
 ]
 
 TRAITS = [
@@ -183,6 +183,35 @@ SKILLS = {
 # `scene` picks a CSS/SVG illustration: dashboard | pipeline | house.
 GITHUB = PROFILE["github"]
 PROJECTS = [
+    {
+        "slug": "sql-bot",
+        "image": "img/projects/sql-bot.webp",
+        "title": "SQL Bot: Secure Natural Language to SQL",
+        "tags": ["LLM", "Text-to-SQL"],
+        "accent": "#FF4103",
+        "scene": "pipeline",
+        "short": "Ask questions in plain English. An AI writes the SQL, it runs locally, and your data is never sent to the AI.",
+        "description": (
+            "Natural language to SQL bot with a FastAPI backend and a Streamlit UI. The AI only receives table and "
+            "column structure plus your question. The generated SQL is validated locally and executed on your own "
+            "MySQL database. Tech Stack: Python, FastAPI, Streamlit, MySQL, sqlglot, OpenAI-compatible API."
+        ),
+        "stack": ["Python", "FastAPI", "Streamlit", "MySQL", "sqlglot", "OpenAI API"],
+        "github": GITHUB + "/SQL_BOT",
+        "demo": "",
+        "sections": {
+            "Overview": "Ask questions about your database in plain English. The AI turns the question into SQL, the query runs locally, and results are shown to you.",
+            "Tech Stack": "Python, FastAPI, Streamlit, MySQL, sqlglot and an OpenAI-compatible AI API.",
+            "Highlights": "The AI sees only schema structure and the question. SQL is parsed and limited to a single SELECT before it runs, and a test checks that row values never reach the AI.",
+        },
+        "features": [
+            "Data boundary: rows and query results are never sent to the AI",
+            "SQL validated with sqlglot: single SELECT/WITH statement only",
+            "Read-only execution with row cap and statement timeout",
+            "Automatic SQL repair using only the schema and the error message",
+            "Streamlit UI with CSV download of results",
+        ],
+    },
     {
         "slug": "adventure-works",
         "image": "img/projects/adventure-works.webp",
@@ -338,6 +367,8 @@ PROJECTS = [
         ],
     },
 ]
+
+STATS[-1]["value"] = str(len(PROJECTS))
 
 EXPERIENCE = [
     {

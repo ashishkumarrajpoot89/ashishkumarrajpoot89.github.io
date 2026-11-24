@@ -34,9 +34,9 @@ def build_styles():
                               spaceBefore=3, spaceAfter=1, leading=11.5),
         "meta": ParagraphStyle("meta", parent=s["Normal"], fontSize=8.3,
                               textColor=colors.HexColor("#666666"), spaceAfter=1),
-        "body": ParagraphStyle("body", parent=s["Normal"], fontSize=8.8, leading=11,
+        "body": ParagraphStyle("body", parent=s["Normal"], fontSize=8.8, leading=10.4,
                               alignment=TA_JUSTIFY, spaceAfter=2),
-        "bullet": ParagraphStyle("bullet", parent=s["Normal"], fontSize=8.8, leading=11),
+        "bullet": ParagraphStyle("bullet", parent=s["Normal"], fontSize=8.8, leading=10.4),
         "skills": ParagraphStyle("skills", parent=s["Normal"], fontSize=8, leading=9.7,
                                alignment=TA_JUSTIFY, spaceAfter=1.2),
     }
@@ -57,7 +57,7 @@ def bullets(items, st):
 def main():
     st = build_styles()
     doc = SimpleDocTemplate(OUT, pagesize=A4, leftMargin=14 * mm, rightMargin=14 * mm,
-                            topMargin=11 * mm, bottomMargin=10 * mm, title="Ashish Kumar - Resume")
+                            topMargin=10 * mm, bottomMargin=9 * mm, title="Ashish Kumar - Resume")
     e = []
 
     e.append(Paragraph("ASHISH KUMAR", st["name"]))
@@ -115,6 +115,15 @@ def main():
         "SQL via SQLAlchemy.",
         "Designed interactive Power BI dashboards covering sales trends, top performers, and profit margins "
         "for stakeholder reporting.",
+    ], st))
+
+    e.append(Paragraph("<b>SQL Bot</b> | Python | FastAPI | Streamlit | MySQL | sqlglot | "
+                       "<link href=\"https://github.com/ashishkumarrajpoot89/SQL_BOT\" color=\"#FF4103\">GitHub</link>", st["role"]))
+    e.append(bullets([
+        "Built a natural-language-to-SQL bot with a FastAPI backend and Streamlit UI; the AI receives only schema "
+        "structure and the question, never table rows or query results.",
+        "Validated generated SQL with sqlglot (single SELECT only) and ran it read-only with row cap and timeout; "
+        "added a data-leakage test and automatic SQL repair.",
     ], st))
 
     e.append(Paragraph("TECHNICAL SKILLS", st["h2"]))

@@ -155,6 +155,7 @@
             <div class="project-links">
                 <a href="{{ url_for('project_detail', slug=p.slug) }}">View Details →</a>
                 <a href="{{ p.github }}" target="_blank" rel="noopener">GitHub</a>
+                {% if p.demo %}<a href="{{ p.demo }}" target="_blank" rel="noopener">Live demo ↗</a>{% endif %}
             </div>
         </div>
         {% endfor %}
